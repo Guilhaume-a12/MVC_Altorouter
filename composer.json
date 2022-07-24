@@ -1,0 +1,13 @@
+{
+    "name": "altorouter/test",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "altorouter/altorouter": "^2.0",
+        "filp/whoops": "^2.14",
+        "benoclock/alto-dispatcher": "^1.3"
+    }
+}
