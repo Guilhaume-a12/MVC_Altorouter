@@ -105,7 +105,9 @@ abstract class CoreController
         } else if (in_array("login",$roles) && !isset($_SESSION['connectedUser'])) {
             return true;
         } else {
+            $this->alert("danger","You must log in");
             header('Location: ' . $this->router->generate('login'));
+            exit;
         }
     }
 
