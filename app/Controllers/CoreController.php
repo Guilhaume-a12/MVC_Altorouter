@@ -23,7 +23,7 @@ abstract class CoreController
             "home" => ["admin", "user"],
 
             // USER
-            "login" => ["connected"],
+            "login" => ["connected","login"],
             "login-validate" => ['connected'],
             "register" => ["connected"],
             "register-validate" => ['connected'],
@@ -102,6 +102,8 @@ abstract class CoreController
                 $errorController->error403();
                 exit;
             }
+        } else if (in_array("login",$roles) && !isset($_SESSION['connectedUser'])) {
+            return true;
         } else {
             header('Location: ' . $this->router->generate('login'));
         }
