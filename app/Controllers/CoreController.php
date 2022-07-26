@@ -20,13 +20,13 @@ abstract class CoreController
 
         $acl = [
             // HOME
-            "home" => ["admin", "user"],
+            "home" => ["admin","user","login"],
 
             // USER
             "login" => ["connected","login"],
-            "login-validate" => ['connected'],
-            "register" => ["connected"],
-            "register-validate" => ['connected'],
+            "login-validate" => ['connected',"login"],
+            "register" => ["connected","login"],
+            "register-validate" => ['connected',"login"],
 
             // BOOKS
             "books" => ["admin", "user"],
@@ -115,7 +115,7 @@ abstract class CoreController
     {
         try {
             if (!isset($file['name']) || empty($file['name']))
-                throw new Exception("Vous devez indiquer une image");
+                throw new Exception("You must select an image");
 
 
             $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -128,15 +128,15 @@ abstract class CoreController
 
 
             if (!getimagesize($file["tmp_name"]))
-                throw new Exception("Le fichier n'est pas une image");
+                throw new Exception("The selected file is not an image");
             if ($extension !== "jpg" && $extension !== "jpeg" && $extension !== "png" && $extension !== "gif")
-                throw new Exception("L'extension du fichier n'est pas reconnu");
+                throw new Exception("The file extension is not recognized");
             if (file_exists($target_file))
-                throw new Exception("Le fichier existe déjà");
+                throw new Exception("The selected file already exists");
             if ($file['size'] > 1000000)
-                throw new Exception("Le fichier est trop gros");
+                throw new Exception("Maximum size exceeded");
             if (!move_uploaded_file($file['tmp_name'], $target_file))
-                throw new Exception("l'ajout de l'image n'a pas fonctionné");
+                throw new Exception("Adding the image did not work");
             else return $random . "_" . $file['name'];
         } catch (Exception $e) {
             $this->alert("danger", $e->getMessage());

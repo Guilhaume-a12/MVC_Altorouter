@@ -2,21 +2,17 @@
 namespace App\Controllers\Users;
 
 use App\Controllers\CoreController;
-use App\Controllers\MainController;
-use App\Controllers\SecurityController;
 use App\Models\Users\UserManager;
 
 class UserController extends CoreController
 {
 
     private $userManager;
-    private $mainController;
 
     public function __construct()
     {
         PARENT::__construct();
         $this->userManager = new UserManager();
-        $this->mainController = new MainController();
     }
 
     public function displayLogin()

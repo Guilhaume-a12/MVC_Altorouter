@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MVC</title>
+  <title><?=$titre?></title>
   <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css">
 </head>
 
@@ -19,22 +19,22 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<?=$this->router->generate('home')?>">Accueil</a>
+            <a class="nav-link" href="<?=$this->router->generate('home')?>">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?=$this->router->generate('books')?>">Livres</a>
+            <a class="nav-link" href="<?=$this->router->generate('books')?>">Books</a>
           </li>
           <?php
           if (!isset($_SESSION['connectedUser'])) {
           ?>
             <li class="nav-item">
-              <a class="nav-link" href="<?=$this->router->generate('login')?>">Connexion</a>
+              <a class="nav-link" href="<?=$this->router->generate('login')?>">Sign in</a>
             </li>
           <?php
           } else {
           ?>
             <li class="nav-item">
-              <a class="nav-link" href="<?=$this->router->generate('logout')?>">Déconnexion</a>
+              <a class="nav-link" href="<?=$this->router->generate('logout')?>">Log out</a>
             </li>
           <?php
           }
@@ -43,7 +43,7 @@
         <?php
         if (isset($_SESSION['connectedUser'])) {
         ?>
-          <p class="my-auto text-light">Connecté en tant que : <?= $_SESSION['connectedUser'] ?></p>
+          <p class="my-auto text-light">logged in as : <?= $_SESSION['connectedUser'] ?></p>
         <?php
         }
         ?>
@@ -55,8 +55,9 @@
   if (!empty($_SESSION['alert'])) {
   ?>
     <div class="container mt-3">
-      <div class="alert alert-<?= $_SESSION['alert']['type'] ?> text-center">
+      <div class="alert alert-<?= $_SESSION['alert']['type'] ?> text-center alert-dismissible fade show" role="alert">
         <?= $_SESSION['alert']['msg'] ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     </div>
   <?php

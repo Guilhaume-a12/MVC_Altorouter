@@ -65,7 +65,7 @@ class BookController extends CoreController
             $myImage = $this->bookManager->getBookById($id)->getImage();
             unlink("images/" . $myImage);
             $this->bookManager->deleteBookDB($id);
-            $this->alert("success", "Livre supprimé");
+            $this->alert("success", "Book deleted successfully");
             header("location:" . $this->router->generate('books'));
             exit;
         } else {
@@ -82,17 +82,23 @@ class BookController extends CoreController
 
     public function updateBookValidate()
     {
+        if (empty($_POST['title']) || empty($_POST['pages'])) {
+            $this->alert("danger", "'Title' and 'pages' must be completed");
+            header("location:" . $this->router->generate('books-update',["id" => $_POST['id']]));
+            exit;
+        }
         $currentImg = $this->bookManager->getBookById($_POST['id'])->getImage();
         $file = $_FILES['image'];
 
         if ($file['size'] > 0) {
             unlink("images/" . $currentImg);
             $dir = "images/";
-            $imgToAdd = $this->mainController->addImage($_POST['titre'], $file, $dir);
+            $imgToAdd = $this->addImage($_POST['title'], $file, $dir);
         } else {
             $imgToAdd = $currentImg;
         }
-        $this->bookManager->updateBookDB($_POST['id'], $_POST['titre'], $_POST['nbPages'], $imgToAdd);
+        $this->bookManager->updateBookDB($_POST['id'], $_POST['title'], $_POST['pages'], $imgToAdd);
+        $this->alert("success", "The book has been successfully updated");
         header("location:" . $this->router->generate('books'));
     }
 }

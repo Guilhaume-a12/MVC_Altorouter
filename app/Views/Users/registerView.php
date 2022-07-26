@@ -14,13 +14,13 @@
         <input type="password" class="form-control" id="password" name="passwordIn">
     </div> 
     <div class="mb-3">
-        <label for="password2" class="form-label">Confirmer password</label>
+        <label for="password2" class="form-label">Confirm password</label>
         <input type="password" class="form-control" id="password2" name="password2In">
     </div> 
-    <button type="submit" class="btn btn-primary">S'inscrire</button>
+    <button type="submit" class="btn btn-primary">Register</button>
 </form>
 
 <?php
-$titre = "Page d'inscription";
+$titre = "Registration page";
 $content = ob_get_clean();
 require_once "../app/Views/layouts/templateView.php";
