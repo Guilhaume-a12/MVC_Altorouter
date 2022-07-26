@@ -22,7 +22,7 @@ class UserManager extends Model {
     }
 
     public function addUserDB($pseudo,$mail,$password) {
-        $sql = "INSERT INTO users (pseudo,mail,password,role) VALUES (:pseudo,:mail,:password,2)";
+        $sql = "INSERT INTO users (pseudo,mail,password,role) VALUES (:pseudo,:mail,:password,'user')";
         $stmt = $this->getBdd()->prepare($sql);
         if ($stmt->execute([":pseudo"=>$pseudo,":mail"=>$mail,":password"=>$password])) {
             return true;
